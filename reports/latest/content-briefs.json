@@ -1,0 +1,180 @@
+{
+  "generatedAt": "2026-07-28T10:52:16.725Z",
+  "policy": {
+    "mode": "draft-only",
+    "allowed": [
+      "technical audits",
+      "content briefs",
+      "meta drafts",
+      "internal link suggestions",
+      "outlines and FAQ drafts",
+      "regression diffs",
+      "IndexNow for real URL changes"
+    ],
+    "forbidden": [
+      "auto-publish",
+      "doorway pages",
+      "spun city pages",
+      "hidden text",
+      "keyword stuffing",
+      "fake reviews",
+      "fabricated race data",
+      "link schemes"
+    ]
+  },
+  "briefs": [
+    {
+      "id": "apex-grid",
+      "primaryPhrase": "Apex Grid",
+      "searchIntent": "marque",
+      "targetRoute": "/",
+      "entityHints": [
+        "Apex Grid",
+        "course automobile",
+        "ingénierie",
+        "Apex Grid"
+      ],
+      "densityGuardrail": {
+        "sampleDensity": 0.5714,
+        "rule": "Ne pas forcer la densité: une occurrence naturelle du thème de marque suffit."
+      },
+      "editorialRequirements": [
+        "Répondre à une intention réelle et identifiable.",
+        "Inclure des données ou observations originales vérifiables.",
+        "Citer les sources primaires et dater les informations.",
+        "Séparer clairement faits, hypothèses et opinion éditoriale.",
+        "Ajouter des liens internes utiles, sans ancre forcée.",
+        "Faire relire les données sportives avant publication.",
+        "Aligner title, H1, description et JSON-LD sur le contenu visible."
+      ],
+      "structuredDataChecklist": [
+        "Article ou WebPage",
+        "BreadcrumbList",
+        "FAQPage seulement si FAQ visible"
+      ],
+      "onPageChecklist": [
+        "1 H1 descriptif",
+        "canonical auto-référent",
+        "OG/Twitter complets",
+        "images avec alt factuel",
+        "maillage vers championnats/événements/équipes"
+      ],
+      "prohibited": [
+        "page satellite",
+        "texte caché",
+        "bourrage de mots-clés",
+        "faux avis",
+        "données inventées",
+        "publication automatique sans validation"
+      ],
+      "suggestedAngles": [
+        "Présentation de la mission éditoriale",
+        "Méthodologie de vérification",
+        "Couverture des championnats"
+      ],
+      "status": "draft-brief-needs-human-validation"
+    },
+    {
+      "id": "luxe-race",
+      "primaryPhrase": "luxe race",
+      "searchIntent": "univers premium de la course automobile",
+      "targetRoute": "/",
+      "entityHints": [
+        "Apex Grid",
+        "course automobile",
+        "ingénierie",
+        "luxe race"
+      ],
+      "densityGuardrail": {
+        "sampleDensity": 0.2,
+        "rule": "Ne pas forcer la densité: une occurrence naturelle du thème de marque suffit."
+      },
+      "editorialRequirements": [
+        "Répondre à une intention réelle et identifiable.",
+        "Inclure des données ou observations originales vérifiables.",
+        "Citer les sources primaires et dater les informations.",
+        "Séparer clairement faits, hypothèses et opinion éditoriale.",
+        "Ajouter des liens internes utiles, sans ancre forcée.",
+        "Faire relire les données sportives avant publication.",
+        "Aligner title, H1, description et JSON-LD sur le contenu visible."
+      ],
+      "structuredDataChecklist": [
+        "Article ou WebPage",
+        "BreadcrumbList",
+        "FAQPage seulement si FAQ visible"
+      ],
+      "onPageChecklist": [
+        "1 H1 descriptif",
+        "canonical auto-référent",
+        "OG/Twitter complets",
+        "images avec alt factuel",
+        "maillage vers championnats/événements/équipes"
+      ],
+      "prohibited": [
+        "page satellite",
+        "texte caché",
+        "bourrage de mots-clés",
+        "faux avis",
+        "données inventées",
+        "publication automatique sans validation"
+      ],
+      "suggestedAngles": [
+        "Design et matériaux du sport automobile premium",
+        "Hospitalité et expérience circuit",
+        "Patrimoine des constructeurs"
+      ],
+      "status": "draft-brief-needs-human-validation"
+    },
+    {
+      "id": "racing-apex",
+      "primaryPhrase": "racing apex",
+      "searchIntent": "analyse technique et trajectoires de course",
+      "targetRoute": "/guides/racing-apex",
+      "entityHints": [
+        "Apex Grid",
+        "course automobile",
+        "ingénierie",
+        "racing apex"
+      ],
+      "densityGuardrail": {
+        "sampleDensity": 0.2,
+        "rule": "Ne pas forcer la densité: une occurrence naturelle du thème de marque suffit."
+      },
+      "editorialRequirements": [
+        "Répondre à une intention réelle et identifiable.",
+        "Inclure des données ou observations originales vérifiables.",
+        "Citer les sources primaires et dater les informations.",
+        "Séparer clairement faits, hypothèses et opinion éditoriale.",
+        "Ajouter des liens internes utiles, sans ancre forcée.",
+        "Faire relire les données sportives avant publication.",
+        "Aligner title, H1, description et JSON-LD sur le contenu visible."
+      ],
+      "structuredDataChecklist": [
+        "Article ou WebPage",
+        "BreadcrumbList",
+        "FAQPage seulement si FAQ visible"
+      ],
+      "onPageChecklist": [
+        "1 H1 descriptif",
+        "canonical auto-référent",
+        "OG/Twitter complets",
+        "images avec alt factuel",
+        "maillage vers championnats/événements/équipes"
+      ],
+      "prohibited": [
+        "page satellite",
+        "texte caché",
+        "bourrage de mots-clés",
+        "faux avis",
+        "données inventées",
+        "publication automatique sans validation"
+      ],
+      "suggestedAngles": [
+        "Analyse du point de corde par type de virage",
+        "Compromis vitesse minimale et sortie de courbe",
+        "Comparaison télémétrique documentée"
+      ],
+      "status": "draft-brief-needs-human-validation"
+    }
+  ]
+}

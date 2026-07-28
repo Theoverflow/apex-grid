@@ -1,20 +1,28 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const limits = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'seo.limits.json'), 'utf8')
+);
+const requiredRoutes = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'seo.routes.json'), 'utf8')
+);
+
 export default {
   brand: 'Apex Grid',
   locale: 'fr-FR',
   strategicTopics: [
     { id: 'apex-grid', phrase: 'Apex Grid', intent: 'marque', destination: '/' },
     { id: 'luxe-race', phrase: 'luxe race', intent: 'univers premium de la course automobile', destination: '/' },
-    { id: 'racing-apex', phrase: 'racing apex', intent: 'analyse technique et trajectoires de course', destination: '/guides/racing-apex' }
+    {
+      id: 'racing-apex',
+      phrase: 'racing apex',
+      intent: 'analyse technique et trajectoires de course',
+      destination: '/guides/racing-apex'
+    }
   ],
-  requiredRoutes: ['/', '/championships', '/robots.txt', '/sitemap.xml'],
+  requiredRoutes,
   excludedPrefixes: ['/api/', '/search'],
-  limits: {
-    titleMin: 20,
-    titleMax: 65,
-    descriptionMin: 80,
-    descriptionMax: 170,
-    h1Max: 1,
-    internalLinksMin: 3,
-    responseMsMax: 2500
-  }
+  limits
 };

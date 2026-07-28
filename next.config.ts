@@ -10,7 +10,7 @@ const securityHeaders = [
 ] as const;
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  // Amplify Hosting SSR expects the standard .next build (not standalone).
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,

@@ -1,0 +1,66 @@
+name: SEO monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * *'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: seo-monitor-production
+  cancel-in-progress: true
+
+jobs:
+  live-audit:
+    if: ${{ vars.PRODUCTION_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - id: suite
+        continue-on-error: true
+        run: npm run seo:ai
+        env:
+          BASE_URL: ${{ vars.PRODUCTION_URL }}
+          MAX_URLS: '100'
+          DEEP_SEO: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-report-${{ github.run_id }}
+          path: reports/
+          retention-days: 30
+      - name: Open or update SEO incident
+        if: steps.suite.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="SEO production audit failed"
+          body="$(cat <<EOF
+          Daily SEO AI suite failed on $(date -u +%F).
+
+          - Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          - Target: ${{ vars.PRODUCTION_URL }}
+          - Dual monitor: GitHub Actions + AWS Lambda (EventBridge)
+          - Review \`reports/seo-ai-suite.md\` and \`reports/seo-report.md\`
+
+          EOF
+          )"
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body" --label "seo,incident" || gh issue create --title "$title" --body "$body"
+          fi
+      - name: Fail workflow on SEO regression
+        if: steps.suite.outcome == 'failure'
+        run: exit 1

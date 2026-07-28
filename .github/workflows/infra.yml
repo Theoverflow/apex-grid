@@ -1,0 +1,86 @@
+name: AWS infrastructure GitOps
+
+on:
+  pull_request:
+    paths:
+      - 'infra/**'
+      - 'scripts/seo-core.mjs'
+      - 'scripts/package-seo-lambda.mjs'
+      - 'seo.limits.json'
+      - 'seo.routes.json'
+      - '.github/workflows/infra.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'infra/**'
+      - 'scripts/seo-core.mjs'
+      - 'scripts/package-seo-lambda.mjs'
+      - 'seo.limits.json'
+      - 'seo.routes.json'
+      - '.github/workflows/infra.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+concurrency:
+  group: terraform-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    # Always use production OIDC trust (documented in GITOPS.md). Apply remains gated to main below.
+    environment: production
+    defaults:
+      run:
+        working-directory: infra/seo-monitor
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install root tooling
+        working-directory: .
+        run: npm ci --no-audit --no-fund
+
+      - name: Package SEO Lambda artifact
+        working-directory: .
+        run: npm run package:seo-lambda
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.8
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - run: terraform fmt -check -recursive
+      - run: terraform init -input=false
+      - run: terraform validate
+
+      - name: Terraform plan
+        run: terraform plan -input=false -out=tfplan
+        env:
+          TF_VAR_aws_region: ${{ vars.AWS_REGION }}
+          TF_VAR_production_url: ${{ vars.PRODUCTION_URL }}
+          TF_VAR_alert_email: ${{ vars.ALERT_EMAIL }}
+          TF_VAR_monthly_budget_usd: ${{ vars.MONTHLY_BUDGET_USD || '5' }}
+
+      - name: Upload plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan-${{ github.run_id }}
+          path: infra/seo-monitor/tfplan
+          retention-days: 14
+
+      - name: Apply on main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: terraform apply -input=false -auto-approve tfplan

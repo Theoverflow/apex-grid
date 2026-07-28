@@ -1,0 +1,114 @@
+name: SEO AI daily commit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * *'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: seo-ai-daily-commit
+  cancel-in-progress: true
+
+jobs:
+  daily:
+    if: ${{ vars.PRODUCTION_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - id: suite
+        continue-on-error: true
+        run: npm run seo:ai
+        env:
+          BASE_URL: ${{ vars.PRODUCTION_URL }}
+          MAX_URLS: '100'
+          DEEP_SEO: '1'
+          SEO_AI_PROVIDER: ${{ vars.SEO_AI_PROVIDER }}
+          SEO_AI_API_KEY: ${{ secrets.SEO_AI_API_KEY }}
+          SEO_AI_MODEL: ${{ vars.SEO_AI_MODEL }}
+
+      - name: Stage latest SEO AI artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/latest
+          for f in \
+            seo-ai-suite.md seo-ai-suite.json \
+            seo-report.md seo-report.json \
+            seo-regression.md seo-regression.json \
+            content-briefs.md content-briefs.json \
+            seo-outlines.md seo-outlines.json \
+            seo-meta-drafts.md seo-meta-drafts.json \
+            seo-internal-links.md seo-internal-links.json \
+            seo-schema-hints.md seo-schema-hints.json
+          do
+            if [ -f "reports/$f" ]; then
+              cp "reports/$f" "reports/latest/$f"
+            fi
+          done
+          {
+            echo "# Daily SEO AI notes"
+            echo
+            echo "- Date (UTC): $(date -u +%F)"
+            echo "- Production: ${{ vars.PRODUCTION_URL }}"
+            echo "- Suite outcome: ${{ steps.suite.outcome }}"
+            echo "- Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo
+            echo "Draft-only artifacts. Editorial publication still requires human validation."
+          } > reports/latest/DAILY_NOTES.md
+
+      - name: Commit and push artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "apex-grid-seo-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/latest
+          if git diff --staged --quiet; then
+            echo "No artifact changes to commit."
+            exit 0
+          fi
+          git commit -m "$(cat <<'EOF'
+          chore(seo): daily AI suite artifacts
+
+          Refresh reports/latest from the automated SEO AI suite.
+          EOF
+          )"
+          git push origin HEAD:${{ github.ref_name }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-ai-daily-${{ github.run_id }}
+          path: reports/
+          retention-days: 30
+
+      - name: Open or update SEO incident
+        if: steps.suite.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="SEO production audit failed"
+          body="Daily SEO AI suite failed on $(date -u +%F). Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          existing="$(gh issue list --state open --search \"$title in:title\" --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body" --label "seo,incident" || gh issue create --title "$title" --body "$body"
+          fi
+          exit 1

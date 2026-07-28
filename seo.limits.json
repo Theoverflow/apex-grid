@@ -1,0 +1,16 @@
+{
+  "titleMin": 20,
+  "titleMax": 65,
+  "descriptionMin": 80,
+  "descriptionMax": 170,
+  "h1Exact": 1,
+  "internalLinksMin": 3,
+  "jsonLdMin": 1,
+  "responseMsMax": 2500,
+  "maxUrls": 100,
+  "requestTimeoutMs": 10000,
+  "thinContentWords": 120,
+  "maxMissingAlt": 0,
+  "maxHeadingSkips": 0,
+  "deepLinkSample": 40
+}

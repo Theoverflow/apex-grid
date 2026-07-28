@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     'Apex Grid, plateforme racing premium : courses automobiles, ingénierie, calendriers, équipes et analyses vérifiées dans un univers luxe race.',
   alternativeNames: ['Racing Apex', 'Luxe Race'],
-  editorialKeywords: ['courses automobiles', 'racing premium', 'ingénierie de course', 'luxe race'],
+  editorialKeywords: ['courses automobiles', 'racing premium', 'ingénierie de course', 'luxe race'] as string[],
   locale: 'fr_FR',
   language: 'fr',
   email: 'editorial@example.com',

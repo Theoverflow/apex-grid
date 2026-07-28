@@ -7,20 +7,27 @@
 3. A successful gate triggers `Deploy production`.
 4. GitHub authenticates to AWS with OIDC, without static AWS keys.
 5. AWS Amplify deploys the `main` branch.
-6. The workflow waits for Amplify, audits production, and submits IndexNow.
-7. At 05:17 UTC every day, `SEO monitor` audits production and opens or updates a GitHub incident on regression.
+6. The workflow waits for Amplify, audits production (`seo:agent`), and submits IndexNow.
+7. At 05:17 UTC every day:
+   - `SEO monitor` (GitHub Actions) audits production and opens/updates a GitHub incident on regression.
+   - AWS EventBridge invokes the SEO Lambda (external path), writes S3 reports, and alerts via SNS/CloudWatch.
+8. Changes under `infra/**` or shared SEO packaging files trigger Terraform plan (PR) / apply (`main`).
+
+See also [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 
 ## GitHub environment
 
-Create the protected environment `production`. Require reviewers if desired.
+Create the protected environment `production`. Require reviewers if desired. Optionally create `preview` for Terraform plans on pull requests.
 
 Repository variables:
 
 - `AWS_REGION`, for example `eu-west-3`
 - `AMPLIFY_APP_ID`
 - `AMPLIFY_BRANCH`, normally `main`
-- `PRODUCTION_URL`, for example `https://www.apex-grid.fr`
-- `INDEXNOW_HOST`, for example `www.apex-grid.fr`
+- `PRODUCTION_URL`, for example `https://apex-grid.darqsh.com`
+- `INDEXNOW_HOST`, for example `apex-grid.darqsh.com`
+- `ALERT_EMAIL`, for example `seo@example.com`
+- `MONTHLY_BUDGET_USD`, for example `5`
 
 Environment secrets:
 
@@ -50,7 +57,11 @@ Restrict the role to this repository and the production environment:
 }
 ```
 
-Minimum role permissions:
+The Terraform workflow always uses the `production` GitHub environment so it matches this OIDC trust. Apply remains restricted to pushes on `main`.
+
+## Minimum IAM permissions
+
+Amplify deploy job:
 
 ```json
 {
@@ -66,30 +77,65 @@ Minimum role permissions:
 }
 ```
 
-Validate the exact Amplify ARN pattern in IAM for the target account before production.
+Terraform / SEO monitor apply (same role or a dedicated infra role):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*",
+        "lambda:*",
+        "iam:GetRole",
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:PassRole",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:TagRole",
+        "iam:ListRolePolicies",
+        "iam:GetRolePolicy",
+        "events:*",
+        "sns:*",
+        "logs:*",
+        "cloudwatch:PutMetricAlarm",
+        "cloudwatch:DeleteAlarms",
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:TagResource",
+        "budgets:*",
+        "tag:GetResources"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Tighten these actions to resource ARNs for the `apex-grid-*` prefix before long-term production use. Validate Amplify ARN patterns in IAM for the target account.
 
 ## Infrastructure SEO AWS à faible coût
 
-Le dossier `infra/seo-monitor` est désormais complet. Terraform provisionne :
-
-- une Lambda Node.js limitée à 256 Mo, 120 secondes et une concurrence ;
-- une règle EventBridge quotidienne ;
-- un bucket S3 privé avec chiffrement et expiration des rapports ;
-- un topic SNS facultatif pour les alertes ;
-- un budget mensuel AWS avec alerte prévisionnelle à 80 %.
-
-Variables GitHub supplémentaires :
-
-```text
-ALERT_EMAIL=seo@example.com
-MONTHLY_BUDGET_USD=5
+```bash
+npm run package:seo-lambda
+cp infra/seo-monitor/terraform.tfvars.example infra/seo-monitor/terraform.tfvars
+cd infra/seo-monitor && terraform init && terraform apply
 ```
 
-Le workflow `.github/workflows/infra.yml` exécute `terraform plan` sur les pull requests et `terraform apply` après merge sur `main`.
+Terraform provisionne :
+
+- Lambda Node.js 20 arm64, 256 Mo, 120 s, concurrency 1
+- EventBridge quotidien (05:17 UTC)
+- bucket S3 privé chiffré + expiration 90 jours
+- topic SNS + alarme CloudWatch sur erreurs Lambda
+- budget mensuel AWS (alerte forecast 80 % + actual 100 %)
+
+Le workflow `.github/workflows/infra.yml` packagé la Lambda, exécute `terraform plan` sur les PR et `apply` après merge sur `main`.
 
 ### État Terraform
 
-Pour une équipe, configurez un backend S3 avec verrouillage `use_lockfile = true`. Le backend n'est pas codé en dur afin d'éviter de créer une dépendance circulaire avant le premier déploiement.
+Pour une équipe, configurez un backend S3 avec verrouillage `use_lockfile = true`. Le backend n'est pas codé en dur afin d'éviter une dépendance circulaire avant le premier déploiement.
 
 ### Free Tier
 

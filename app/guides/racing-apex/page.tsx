@@ -35,7 +35,7 @@ export default function RacingApexGuidePage() {
   return (
     <article className="section shell prose-page">
       <JsonLd data={jsonLd} />
-      <Breadcrumbs items={[{ name: 'Accueil', path: '/' }, { name: 'Guides', path: '/guides/racing-apex' }, { name: 'Racing apex', path: '/guides/racing-apex' }]} />
+      <Breadcrumbs items={[{ label: 'Accueil', href: '/' }, { label: 'Guides' }, { label: 'Racing apex' }]} />
       <div className="eyebrow">Guide technique Apex Grid</div>
       <h1>Racing apex : maîtriser le point de corde</h1>
       <p className="lead">Le racing apex, ou point de corde, est la zone où la trajectoire s’approche le plus de l’intérieur d’un virage. Son choix dépend moins d’une règle universelle que du virage suivant, de l’adhérence, de la puissance disponible et de l’objectif de la séquence.</p>

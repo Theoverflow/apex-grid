@@ -1,0 +1,93 @@
+name: Deploy production
+
+on:
+  workflow_run:
+    workflows: ["Quality gate"]
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Trigger AWS Amplify deployment
+        id: deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          job_id="$(aws amplify start-job \
+            --app-id "${{ vars.AMPLIFY_APP_ID }}" \
+            --branch-name "${{ vars.AMPLIFY_BRANCH }}" \
+            --job-type RELEASE \
+            --query 'jobSummary.jobId' \
+            --output text)"
+          echo "job_id=$job_id" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 90); do
+            status="$(aws amplify get-job \
+              --app-id "${{ vars.AMPLIFY_APP_ID }}" \
+              --branch-name "${{ vars.AMPLIFY_BRANCH }}" \
+              --job-id "${{ steps.deploy.outputs.job_id }}" \
+              --query 'job.summary.status' \
+              --output text)"
+            echo "Amplify status: $status"
+            case "$status" in
+              SUCCEED) exit 0 ;;
+              FAILED|CANCELLED) exit 1 ;;
+            esac
+            sleep 20
+          done
+          echo "Amplify deployment timed out" >&2
+          exit 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Post-deployment SEO smoke test
+        run: npm run seo:agent
+        env:
+          BASE_URL: ${{ vars.PRODUCTION_URL }}
+
+      - name: Notify IndexNow
+        if: success() && secrets.INDEXNOW_KEY != ''
+        run: npm run seo:indexnow
+        env:
+          INDEXNOW_HOST: ${{ vars.INDEXNOW_HOST }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          SITEMAP_URL: ${{ vars.PRODUCTION_URL }}/sitemap.xml
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: production-seo-smoke-${{ github.run_id }}
+          path: reports/
+          retention-days: 30

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: { default: `${siteConfig.name} — Courses automobiles`, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   applicationName: siteConfig.name,
-  keywords: siteConfig.editorialKeywords,
+  keywords: [...siteConfig.editorialKeywords],
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
     other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION ?? '' }

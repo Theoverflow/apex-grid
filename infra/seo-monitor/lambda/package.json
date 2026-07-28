@@ -1,0 +1,13 @@
+{
+  "name": "apex-grid-seo-monitor-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.787.0",
+    "@aws-sdk/client-sns": "^3.787.0"
+  }
+}

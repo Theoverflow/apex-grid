@@ -1,0 +1,12 @@
+# Optional remote state for teams (copy to backend.tf after creating the bucket once).
+# Keeps free-tier cost near zero: one small state object in a private S3 bucket.
+
+terraform {
+  backend "s3" {
+    bucket       = "apex-grid-tfstate-REPLACE"
+    key          = "seo-monitor/terraform.tfstate"
+    region       = "eu-west-3"
+    encrypt      = true
+    use_lockfile = true
+  }
+}

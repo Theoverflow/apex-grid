@@ -4,7 +4,9 @@ test('home exposes core SEO elements and crawlable navigation', async ({ page })
   await page.goto('/');
   await expect(page).toHaveTitle(/Apex Grid/);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /courses automobiles/i);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /example\.com\/?$/);
+  const canonical = page.locator('link[rel="canonical"]');
+  await expect(canonical).toHaveAttribute('href', /^https?:\/\//);
+  await expect(canonical).toHaveAttribute('href', /\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Au-delà de la limite');
   await expect(page.locator('script[type="application/ld+json"]')).not.toHaveCount(0);
 });

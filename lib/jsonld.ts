@@ -12,7 +12,7 @@ export const organizationJsonLd: Organization = {
   sameAs: Object.values(siteConfig.social)
 };
 
-export const websiteJsonLd: WebSite = {
+export const websiteJsonLd = {
   '@type': 'WebSite',
   '@id': `${siteConfig.url}/#website`,
   url: siteConfig.url,
@@ -24,7 +24,7 @@ export const websiteJsonLd: WebSite = {
     target: `${siteConfig.url}/search?q={search_term_string}`,
     'query-input': 'required name=search_term_string'
   }
-};
+} as WebSite;
 
 export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>): BreadcrumbList {
   return {

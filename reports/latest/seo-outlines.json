@@ -1,0 +1,334 @@
+{
+  "generatedAt": "2026-07-28T10:52:16.799Z",
+  "policy": {
+    "mode": "draft-only",
+    "allowed": [
+      "technical audits",
+      "content briefs",
+      "meta drafts",
+      "internal link suggestions",
+      "outlines and FAQ drafts",
+      "regression diffs",
+      "IndexNow for real URL changes"
+    ],
+    "forbidden": [
+      "auto-publish",
+      "doorway pages",
+      "spun city pages",
+      "hidden text",
+      "keyword stuffing",
+      "fake reviews",
+      "fabricated race data",
+      "link schemes"
+    ]
+  },
+  "outlines": [
+    {
+      "id": "apex-grid",
+      "phrase": "Apex Grid",
+      "intent": "marque",
+      "targetRoute": "/",
+      "h1": "Apex Grid",
+      "sections": [
+        {
+          "heading": "Définition et enjeu",
+          "purpose": "Clarifier le concept pour un lecteur expert et curieux."
+        },
+        {
+          "heading": "Variables techniques",
+          "purpose": "Lister les facteurs mesurables sans inventer de données."
+        },
+        {
+          "heading": "Lecture de cas",
+          "purpose": "Illustrer avec un exemple vérifié ou explicitement hypothétique."
+        },
+        {
+          "heading": "Erreurs fréquentes",
+          "purpose": "Corriger les idées reçues sans sensationalisme."
+        },
+        {
+          "heading": "À retenir",
+          "purpose": "Synthèse actionnable et liens internes utiles."
+        }
+      ],
+      "faqDrafts": [
+        {
+          "question": "Qu’est-ce que Apex Grid ?",
+          "answerGuidance": "Réponse factuelle courte, puis nuance technique."
+        },
+        {
+          "question": "Comment analyser Apex Grid sans biaiser les données ?",
+          "answerGuidance": "Méthode, sources, limites de l’interprétation."
+        }
+      ],
+      "validationGate": [
+        "Aucune donnée de course inventée",
+        "Sources primaires citées",
+        "Relecture humaine avant publication",
+        "JSON-LD aligné sur le contenu visible"
+      ]
+    },
+    {
+      "id": "luxe-race",
+      "phrase": "luxe race",
+      "intent": "univers premium de la course automobile",
+      "targetRoute": "/",
+      "h1": "Luxe race",
+      "sections": [
+        {
+          "heading": "Définition et enjeu",
+          "purpose": "Clarifier le concept pour un lecteur expert et curieux."
+        },
+        {
+          "heading": "Variables techniques",
+          "purpose": "Lister les facteurs mesurables sans inventer de données."
+        },
+        {
+          "heading": "Lecture de cas",
+          "purpose": "Illustrer avec un exemple vérifié ou explicitement hypothétique."
+        },
+        {
+          "heading": "Erreurs fréquentes",
+          "purpose": "Corriger les idées reçues sans sensationalisme."
+        },
+        {
+          "heading": "À retenir",
+          "purpose": "Synthèse actionnable et liens internes utiles."
+        }
+      ],
+      "faqDrafts": [
+        {
+          "question": "Qu’est-ce que luxe race ?",
+          "answerGuidance": "Réponse factuelle courte, puis nuance technique."
+        },
+        {
+          "question": "Comment analyser luxe race sans biaiser les données ?",
+          "answerGuidance": "Méthode, sources, limites de l’interprétation."
+        }
+      ],
+      "validationGate": [
+        "Aucune donnée de course inventée",
+        "Sources primaires citées",
+        "Relecture humaine avant publication",
+        "JSON-LD aligné sur le contenu visible"
+      ]
+    },
+    {
+      "id": "racing-apex",
+      "phrase": "racing apex",
+      "intent": "analyse technique et trajectoires de course",
+      "targetRoute": "/guides/racing-apex",
+      "h1": "Racing apex",
+      "sections": [
+        {
+          "heading": "Définition et enjeu",
+          "purpose": "Clarifier le concept pour un lecteur expert et curieux."
+        },
+        {
+          "heading": "Variables techniques",
+          "purpose": "Lister les facteurs mesurables sans inventer de données."
+        },
+        {
+          "heading": "Lecture de cas",
+          "purpose": "Illustrer avec un exemple vérifié ou explicitement hypothétique."
+        },
+        {
+          "heading": "Erreurs fréquentes",
+          "purpose": "Corriger les idées reçues sans sensationalisme."
+        },
+        {
+          "heading": "À retenir",
+          "purpose": "Synthèse actionnable et liens internes utiles."
+        }
+      ],
+      "faqDrafts": [
+        {
+          "question": "Qu’est-ce que racing apex ?",
+          "answerGuidance": "Réponse factuelle courte, puis nuance technique."
+        },
+        {
+          "question": "Comment analyser racing apex sans biaiser les données ?",
+          "answerGuidance": "Méthode, sources, limites de l’interprétation."
+        }
+      ],
+      "validationGate": [
+        "Aucune donnée de course inventée",
+        "Sources primaires citées",
+        "Relecture humaine avant publication",
+        "JSON-LD aligné sur le contenu visible"
+      ]
+    }
+  ],
+  "llm": {
+    "provider": "heuristic",
+    "enriched": false,
+    "payload": {
+      "outlines": [
+        {
+          "id": "apex-grid",
+          "phrase": "Apex Grid",
+          "intent": "marque",
+          "targetRoute": "/",
+          "h1": "Apex Grid",
+          "sections": [
+            {
+              "heading": "Définition et enjeu",
+              "purpose": "Clarifier le concept pour un lecteur expert et curieux."
+            },
+            {
+              "heading": "Variables techniques",
+              "purpose": "Lister les facteurs mesurables sans inventer de données."
+            },
+            {
+              "heading": "Lecture de cas",
+              "purpose": "Illustrer avec un exemple vérifié ou explicitement hypothétique."
+            },
+            {
+              "heading": "Erreurs fréquentes",
+              "purpose": "Corriger les idées reçues sans sensationalisme."
+            },
+            {
+              "heading": "À retenir",
+              "purpose": "Synthèse actionnable et liens internes utiles."
+            }
+          ],
+          "faqDrafts": [
+            {
+              "question": "Qu’est-ce que Apex Grid ?",
+              "answerGuidance": "Réponse factuelle courte, puis nuance technique."
+            },
+            {
+              "question": "Comment analyser Apex Grid sans biaiser les données ?",
+              "answerGuidance": "Méthode, sources, limites de l’interprétation."
+            }
+          ],
+          "validationGate": [
+            "Aucune donnée de course inventée",
+            "Sources primaires citées",
+            "Relecture humaine avant publication",
+            "JSON-LD aligné sur le contenu visible"
+          ]
+        },
+        {
+          "id": "luxe-race",
+          "phrase": "luxe race",
+          "intent": "univers premium de la course automobile",
+          "targetRoute": "/",
+          "h1": "Luxe race",
+          "sections": [
+            {
+              "heading": "Définition et enjeu",
+              "purpose": "Clarifier le concept pour un lecteur expert et curieux."
+            },
+            {
+              "heading": "Variables techniques",
+              "purpose": "Lister les facteurs mesurables sans inventer de données."
+            },
+            {
+              "heading": "Lecture de cas",
+              "purpose": "Illustrer avec un exemple vérifié ou explicitement hypothétique."
+            },
+            {
+              "heading": "Erreurs fréquentes",
+              "purpose": "Corriger les idées reçues sans sensationalisme."
+            },
+            {
+              "heading": "À retenir",
+              "purpose": "Synthèse actionnable et liens internes utiles."
+            }
+          ],
+          "faqDrafts": [
+            {
+              "question": "Qu’est-ce que luxe race ?",
+              "answerGuidance": "Réponse factuelle courte, puis nuance technique."
+            },
+            {
+              "question": "Comment analyser luxe race sans biaiser les données ?",
+              "answerGuidance": "Méthode, sources, limites de l’interprétation."
+            }
+          ],
+          "validationGate": [
+            "Aucune donnée de course inventée",
+            "Sources primaires citées",
+            "Relecture humaine avant publication",
+            "JSON-LD aligné sur le contenu visible"
+          ]
+        },
+        {
+          "id": "racing-apex",
+          "phrase": "racing apex",
+          "intent": "analyse technique et trajectoires de course",
+          "targetRoute": "/guides/racing-apex",
+          "h1": "Racing apex",
+          "sections": [
+            {
+              "heading": "Définition et enjeu",
+              "purpose": "Clarifier le concept pour un lecteur expert et curieux."
+            },
+            {
+              "heading": "Variables techniques",
+              "purpose": "Lister les facteurs mesurables sans inventer de données."
+            },
+            {
+              "heading": "Lecture de cas",
+              "purpose": "Illustrer avec un exemple vérifié ou explicitement hypothétique."
+            },
+            {
+              "heading": "Erreurs fréquentes",
+              "purpose": "Corriger les idées reçues sans sensationalisme."
+            },
+            {
+              "heading": "À retenir",
+              "purpose": "Synthèse actionnable et liens internes utiles."
+            }
+          ],
+          "faqDrafts": [
+            {
+              "question": "Qu’est-ce que racing apex ?",
+              "answerGuidance": "Réponse factuelle courte, puis nuance technique."
+            },
+            {
+              "question": "Comment analyser racing apex sans biaiser les données ?",
+              "answerGuidance": "Méthode, sources, limites de l’interprétation."
+            }
+          ],
+          "validationGate": [
+            "Aucune donnée de course inventée",
+            "Sources primaires citées",
+            "Relecture humaine avant publication",
+            "JSON-LD aligné sur le contenu visible"
+          ]
+        }
+      ]
+    }
+  },
+  "schemaHints": [
+    {
+      "route": "/",
+      "recommendedTypes": [
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "note": "FAQPage uniquement si les Q/R sont visibles dans le HTML publié."
+    },
+    {
+      "route": "/",
+      "recommendedTypes": [
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "note": "FAQPage uniquement si les Q/R sont visibles dans le HTML publié."
+    },
+    {
+      "route": "/guides/racing-apex",
+      "recommendedTypes": [
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "note": "FAQPage uniquement si les Q/R sont visibles dans le HTML publié."
+    }
+  ]
+}
