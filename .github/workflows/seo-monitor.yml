@@ -31,7 +31,7 @@ jobs:
           BASE_URL: ${{ vars.PRODUCTION_URL }}
           MAX_URLS: '100'
           DEEP_SEO: '1'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: seo-report-${{ github.run_id }}
