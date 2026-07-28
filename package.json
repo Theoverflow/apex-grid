@@ -1,0 +1,42 @@
+{
+  "name": "apex-grid",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "check": "npm run typecheck && npm run test && npm run build && npm run audit:seo && npm run seo:briefs",
+    "seo:agent": "node scripts/seo-agent.mjs",
+    "seo:briefs": "node scripts/content-brief-agent.mjs",
+    "seo:indexnow": "node scripts/indexnow.mjs"
+  },
+  "dependencies": {
+    "@next/third-parties": "^15.5.0",
+    "next": "15.5.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "schema-dts": "^1.1.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.17.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.0",
+    "vitest": "^3.2.4"
+  }
+}

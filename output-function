@@ -1,0 +1,20 @@
+function handler(event) {
+  var response = event.response;
+  var headers = response.headers;
+
+  headers["strict-transport-security"] = {
+    value: "max-age=31536000; includeSubDomains",
+  };
+  headers["x-content-type-options"] = { value: "nosniff" };
+  headers["x-frame-options"] = { value: "DENY" };
+  headers["referrer-policy"] = { value: "strict-origin-when-cross-origin" };
+  headers["permissions-policy"] = {
+    value: "geolocation=(), microphone=(), camera=()",
+  };
+  headers["content-security-policy"] = {
+    value:
+      "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-YtUQ9hWrzgd+ffDfm8Ikk0CHZ9Y9wbaIrseLREJbAeE='; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; worker-src 'self'",
+  };
+
+  return response;
+}

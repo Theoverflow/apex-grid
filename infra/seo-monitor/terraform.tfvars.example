@@ -1,0 +1,4 @@
+aws_region = "eu-west-3"
+production_url = "https://apex-grid.darqsh.com"
+alert_email = "contact@darqsh.com"
+monthly_budget_usd = 4

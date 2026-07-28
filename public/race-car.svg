@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="t d">
+<title id="t">Prototype de course stylisé</title><desc id="d">Illustration abstraite rouge et noire d'une voiture de course profilée.</desc>
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#ff3b30"/><stop offset="1" stop-color="#ff8a1f"/></linearGradient><filter id="s"><feGaussianBlur stdDeviation="8"/></filter></defs>
+<ellipse cx="470" cy="385" rx="330" ry="35" fill="#ff3b30" opacity=".25" filter="url(#s)"/>
+<path d="M80 340 155 275 340 240 505 145 695 170 775 240 850 270 820 345 690 355 625 310 295 310 235 360Z" fill="#13161c" stroke="url(#g)" stroke-width="8"/>
+<path d="m327 239 207-74 135 22 69 57-227-3Z" fill="#242933"/><path d="m380 230 151-52 93 16 54 43Z" fill="#090a0d"/>
+<path d="M167 275h170l-44 35H125Z" fill="url(#g)"/><path d="M716 245h122l34 28-155 3Z" fill="url(#g)"/>
+<circle cx="278" cy="335" r="66" fill="#07080a" stroke="#3b3f49" stroke-width="13"/><circle cx="278" cy="335" r="26" fill="url(#g)"/>
+<circle cx="694" cy="335" r="66" fill="#07080a" stroke="#3b3f49" stroke-width="13"/><circle cx="694" cy="335" r="26" fill="url(#g)"/>
+<path d="M410 286h218" stroke="#d8ff45" stroke-width="8"/><path d="m90 355 735-4" stroke="#ff3b30" stroke-width="4" opacity=".55"/>
+</svg>

@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-27T19:43:04.804Z",
+  "briefs": [
+    {
+      "id": "apex-grid",
+      "primaryPhrase": "Apex Grid",
+      "searchIntent": "marque",
+      "targetRoute": "/",
+      "editorialRequirements": [
+        "Répondre à une intention réelle et identifiable.",
+        "Inclure des données ou observations originales vérifiables.",
+        "Citer les sources primaires et dater les informations.",
+        "Séparer clairement faits, hypothèses et opinion éditoriale.",
+        "Ajouter des liens internes utiles, sans ancre forcée.",
+        "Faire relire les données sportives avant publication."
+      ],
+      "prohibited": [
+        "page satellite",
+        "texte caché",
+        "bourrage de mots-clés",
+        "faux avis",
+        "données inventées",
+        "publication automatique sans validation"
+      ],
+      "suggestedAngles": [
+        "Présentation de la mission éditoriale",
+        "Méthodologie de vérification",
+        "Couverture des championnats"
+      ]
+    },
+    {
+      "id": "luxe-race",
+      "primaryPhrase": "luxe race",
+      "searchIntent": "univers premium de la course automobile",
+      "targetRoute": "/",
+      "editorialRequirements": [
+        "Répondre à une intention réelle et identifiable.",
+        "Inclure des données ou observations originales vérifiables.",
+        "Citer les sources primaires et dater les informations.",
+        "Séparer clairement faits, hypothèses et opinion éditoriale.",
+        "Ajouter des liens internes utiles, sans ancre forcée.",
+        "Faire relire les données sportives avant publication."
+      ],
+      "prohibited": [
+        "page satellite",
+        "texte caché",
+        "bourrage de mots-clés",
+        "faux avis",
+        "données inventées",
+        "publication automatique sans validation"
+      ],
+      "suggestedAngles": [
+        "Design et matériaux du sport automobile premium",
+        "Hospitalité et expérience circuit",
+        "Patrimoine des constructeurs"
+      ]
+    },
+    {
+      "id": "racing-apex",
+      "primaryPhrase": "racing apex",
+      "searchIntent": "analyse technique et trajectoires de course",
+      "targetRoute": "/guides/racing-apex",
+      "editorialRequirements": [
+        "Répondre à une intention réelle et identifiable.",
+        "Inclure des données ou observations originales vérifiables.",
+        "Citer les sources primaires et dater les informations.",
+        "Séparer clairement faits, hypothèses et opinion éditoriale.",
+        "Ajouter des liens internes utiles, sans ancre forcée.",
+        "Faire relire les données sportives avant publication."
+      ],
+      "prohibited": [
+        "page satellite",
+        "texte caché",
+        "bourrage de mots-clés",
+        "faux avis",
+        "données inventées",
+        "publication automatique sans validation"
+      ],
+      "suggestedAngles": [
+        "Analyse du point de corde par type de virage",
+        "Compromis vitesse minimale et sortie de courbe",
+        "Comparaison télémétrique documentée"
+      ]
+    }
+  ]
+}
