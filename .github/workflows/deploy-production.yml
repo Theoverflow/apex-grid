@@ -85,7 +85,7 @@ jobs:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
           SITEMAP_URL: ${{ vars.PRODUCTION_URL }}/sitemap.xml
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: production-seo-smoke-${{ github.run_id }}
